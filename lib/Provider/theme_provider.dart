@@ -8,9 +8,10 @@ class ThemeProvider extends ChangeNotifier {
   ThemeProvider({required this.themeModel});
 
   void changeTheme() async {
+    themeModel.isDark = !themeModel.isDark;
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setBool("isthemeDark", themeModel.isDark);
-    themeModel.isDark = !themeModel.isDark;
+
     notifyListeners();
   }
 }
