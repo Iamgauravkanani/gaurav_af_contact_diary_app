@@ -2,6 +2,7 @@ import 'package:af_6/Models/theme_model.dart';
 import 'package:af_6/Provider/counter_provider.dart';
 import 'package:af_6/Provider/theme_provider.dart';
 import 'package:af_6/views/Screens/add_contact_page.dart';
+import 'package:af_6/views/Screens/details_page.dart';
 import 'package:af_6/views/Screens/home_page.dart';
 import 'package:af_6/views/Screens/intro_screen.dart';
 import 'package:flutter/material.dart';
@@ -65,6 +66,7 @@ void main() async {
           '/': (context) => Intro_Screen(),
           'Home_Page': (context) => HomePage(),
           'add_contact_page': (context) => Add_Contact_Page(),
+          'contact_details_page': (context) => Contact_Details_page(),
         },
       ),
     ),

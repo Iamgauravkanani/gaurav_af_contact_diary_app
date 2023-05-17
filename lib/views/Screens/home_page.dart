@@ -44,7 +44,8 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, i) {
                 return ListTile(
                   onTap: () {
-                    Navigator.of(context).pushNamed('');
+                    Navigator.of(context).pushNamed('contact_details_page',
+                        arguments: Globals.allContacts[i]);
                   },
                   title: Text(Globals.allContacts[i].name),
                   subtitle: Text(
