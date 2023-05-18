@@ -1,8 +1,8 @@
 import 'package:af_6/Models/contact_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../utils/Globals.dart';
 
 class Contact_Details_page extends StatefulWidget {
@@ -22,8 +22,10 @@ class _Contact_Details_pageState extends State<Contact_Details_page> {
         actions: [
           IconButton(
               onPressed: () {
-                Globals.allContacts.remove(Contact);
-                Globals.hiddenContacts.add(Contact as Contact);
+                Provider.of<Globals>(context, listen: false)
+                    .removeContacts(contact);
+                Provider.of<Globals>(context, listen: false)
+                    .addContacts(contact);
               },
               icon: Icon(Icons.lock))
         ],

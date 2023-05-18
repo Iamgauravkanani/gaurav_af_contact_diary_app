@@ -1,8 +1,10 @@
 import 'package:af_6/Models/theme_model.dart';
 import 'package:af_6/Provider/counter_provider.dart';
 import 'package:af_6/Provider/theme_provider.dart';
+import 'package:af_6/utils/Globals.dart';
 import 'package:af_6/views/Screens/add_contact_page.dart';
 import 'package:af_6/views/Screens/details_page.dart';
+import 'package:af_6/views/Screens/hidden_contact_page.dart';
 import 'package:af_6/views/Screens/home_page.dart';
 import 'package:af_6/views/Screens/intro_screen.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +27,7 @@ void main() async {
             themeModel: ThemeModel(isDark: isThemeDark),
           ),
         ),
+        ChangeNotifierProvider(create: (context) => Globals()),
       ],
       builder: (context, _) => MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -67,6 +70,7 @@ void main() async {
           'Home_Page': (context) => HomePage(),
           'add_contact_page': (context) => Add_Contact_Page(),
           'contact_details_page': (context) => Contact_Details_page(),
+          'hidden_page': (context) => Hidden_Page(),
         },
       ),
     ),

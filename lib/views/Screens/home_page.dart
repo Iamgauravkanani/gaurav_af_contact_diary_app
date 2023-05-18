@@ -1,7 +1,8 @@
-import 'package:af_6/Provider/counter_provider.dart';
 import 'package:af_6/Provider/theme_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -15,6 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  LocalAuthentication auth = LocalAuthentication();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +29,43 @@ class _HomePageState extends State<HomePage> {
                 Provider.of<ThemeProvider>(context, listen: false)
                     .changeTheme();
               },
-              icon: const Icon(Icons.wb_sunny_outlined))
+              icon: const Icon(Icons.wb_sunny_outlined)),
+          PopupMenuButton(
+              itemBuilder: (context) => [
+                    PopupMenuItem(
+                      onTap: () async {
+                        bool canCheckBioMetrics = await auth.canCheckBiometrics;
+                        bool isSuppotred = await auth.isDeviceSupported();
+
+                        try {
+                          if (canCheckBioMetrics == true ||
+                              isSuppotred == true) {
+                            bool authenticate = await auth.authenticate(
+                                localizedReason:
+                                    "For See Hidden Contacts You Need to Authenticate");
+
+                            if (authenticate == true) {
+                              Navigator.of(context).pushNamed('hidden_page');
+                            } else {
+                              print("==================================");
+                              print("Authentication Failed");
+                              print("==================================");
+                            }
+                          } else {
+                            print("==================================");
+                            print("Device is not Supported");
+                            print("==================================");
+                          }
+                        } on PlatformException catch (e) {
+                          print("==================================");
+                          print(e.code);
+                          print("==================================");
+                        }
+                      },
+                      child: Text("Hidden Contacts"),
+                    ),
+                    PopupMenuItem(child: Text("Settings")),
+                  ]),
         ],
       ),
       floatingActionButton: FloatingActionButton(
